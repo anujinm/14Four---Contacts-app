@@ -40,7 +40,6 @@ export default {
     //   'setActiveTask'
     // ]),
     getInfo (event) {
-      console.log(this.infoState)
       const { value } = event.target
       this.infoState = value
       if (this.infoState === 'email') {
@@ -49,7 +48,6 @@ export default {
       if (this.infoState === 'phone') {
         this.infoState2 = 'email'
       }
-      console.log(this.infoState)
     }
   },
   components: {

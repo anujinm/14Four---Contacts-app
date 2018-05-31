@@ -6,8 +6,12 @@
     .name(v-html="data.name")
     .vline
     .info
-      data(v-html="data[infoState]")
-      p.detailsText(v-html="data[infoState2] + '<br/><br/>' + data.address")
+      a.email(v-if="infoState === 'email'" v-html="data.email")
+      .phone(v-else v-html="data.phone")
+      .detailsText
+        a.email(v-if="infoState2 === 'email'" v-html="data.email")
+        .phone(v-if="infoState2 === 'phone'" v-html="data.phone")
+        .address(v-html="'<br/>' + data.address")
 </template>
 
 <script>
@@ -56,6 +60,24 @@ export default {
       bind (el, binding, vmode) {
         el.style.color = binding.value
       }
+    },
+    'more': {
+      bind (el, binding, vmode) {
+        if (binding.value[0].length > 12) {
+          console.log('making it url')
+          el.innerHTML = '<a href="#">' + binding.value[0] + '<a/>' + '<br/><br/>' + binding.value[1]
+        } else {
+          el.innerHTML = binding.value[0] + '<br/><br/>' + binding.value[1]
+        }
+      }
+    },
+    'more1': {
+      bind (el, binding, vmode) {
+        if (binding.value.length > 12) {
+          console.log('making it url')
+          el.innerHTML = '<a href="#" style="color: #7fbfff; border-bottom: 1px dashed #7fbfff;">' + binding.value + '<a/>'
+        }
+      }
     }
   }
 }
@@ -71,6 +93,15 @@ export default {
   background:linear-gradient(#1C1C1C, #282828, #1c1c1c);
   position: relative;
   transition: background-color .33s ease-in-out;
+
+  .email{
+    color: #7fbfff;
+    border-bottom: 1px solid #7fbfff;
+    cursor: pointer;
+    &:hover {
+      color: #7fbfff;
+    }
+  }
   
   &.isOdd {
     background: linear-gradient(#282828, #383838, #282828);
@@ -85,7 +116,6 @@ export default {
 
   &.active {
     background: linear-gradient(#383838, #606060);
-    // what to do??
     .vline {
       display: none;
     }
@@ -106,6 +136,7 @@ export default {
         background-color: #585858;
         width: 193px;
         padding-left: 25px;
+        padding-right: 10px;
         padding-top: 10px; 
         padding-bottom: 10px;  
         margin-left: -27px;

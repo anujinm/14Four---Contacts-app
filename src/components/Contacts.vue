@@ -1,10 +1,14 @@
 <template lang="pug">
   .contacts
     .container
-      contact(v-for="(contact, index) in contacts" :key="'contact' + index" :data="contact" :index="index"
-        :infoState="infoState" :infoState2="infoState2" :hover="onMouseHover" :hoverOff="onMouseOut" 
-        :inactive="isInactive(index)" :active="isActive(index)" :isOdd="isOdd(index)")
+      .vue-scroll(:ops="ops")
+        contact(v-for="(contact, index) in contacts" :key="'contact' + index" :data="contact" :index="index"
+          :infoState="infoState" :infoState2="infoState2" :hover="onMouseHover" :hoverOff="onMouseOut" 
+          :inactive="isInactive(index)" :active="isActive(index)" :isOdd="isOdd(index)")
 </template>
+
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/vuescroll"></script>
 
 <script>
 import debug from 'debug'
@@ -18,6 +22,15 @@ export default {
   ],
   data () {
     return {
+      ops: {
+        rail: {
+          vRail: {
+            opacity: 0,
+            background: undefined,
+            pos: 'right'
+          }
+        }
+      },
       activeRowIndex: -1,
       contacts: [
         {
@@ -26,6 +39,34 @@ export default {
           phone: '509-234-2313',
           email: 'ahsdbm@yahoo.com',
           address: '6539 Wilton Ave. Culver City CA 90234'
+        },
+        {
+          bullet: 'green',
+          name: 'Christian',
+          phone: '509-345-3257',
+          email: 'christianb@yahoo.com',
+          address: '9707 Morton Ave. Seattle WA 21234'
+        },
+        {
+          bullet: 'yellow',
+          name: 'Scott',
+          phone: '323-353-6890',
+          email: 'rich@yahoo.com',
+          address: '3456 N Ivanhoe Rd. Spokane WA 99214'
+        },
+        {
+          bullet: 'red',
+          name: 'Danny',
+          phone: '323-876-2346',
+          email: 'dannym@yahoo.com',
+          address: '4572 Boone Ave. SaltLake City WA 23421'
+        },
+        {
+          bullet: 'green',
+          name: 'Taka',
+          phone: '206-248-2761',
+          email: 'takataka@yahoo.com',
+          address: '1295 Southhill Ave. Pullman WA 99218'
         },
         {
           bullet: 'green',
@@ -84,17 +125,10 @@ export default {
           address: '4356 Mariam Ave. San Jose CA 90345'
         },
         {
-          bullet: 'red',
-          name: 'Anne',
-          phone: '353-387-1234',
-          email: 'anne@gmail.com',
-          address: '6735 Anne Ave. San Fransisco CA 90224'
-        },
-        {
           bullet: 'green',
           name: 'Roberto',
           phone: '893-137-1123',
-          email: 'rr@yahoo.com',
+          email: 'roberto@yahoo.com',
           address: '300 W Hawthorne Rd. Spokane WA 99215'
         },
         {
@@ -103,19 +137,14 @@ export default {
           phone: '509-457-1189',
           email: 'tomt@gmail.com',
           address: '6539 Wilton Ave. Culver City CA 90234'
-        },
-        {
-          bullet: 'yellow',
-          name: 'Cat',
-          phone: '323-387-1234',
-          email: 'catty@gmail.com',
-          address: '233 S Main St. Seattle WA 90234'
         }
       ]
     }
   },
   beforeCreate: function () {
     this.rowIndex = -1
+  },
+  beforeDestroy () {
   },
   mounted: function () {
     log('Mounted')
@@ -174,6 +203,8 @@ export default {
 @import "../styles/_variables";
 @import "../styles/_mixins";
 .contacts {
+  height: 490px;
+  width: 310px;
   .row{
     font-size: 15px;
     padding: 10px;
