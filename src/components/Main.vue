@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+// import { mapActions, mapState } from 'vuex'
 import debug from 'debug'
 import contacts from '@/components/Contacts'
 let log = debug('component:Main')
@@ -30,21 +30,26 @@ export default {
     log('Mounted')
   },
   computed: {
-    ...mapState('tasks', {
-      tasksSorted: state => state.all.slice().sort((a, b) => a.title.localeCompare(b.title))
-    })
+    // ...mapState('tasks', {
+    //   tasksSorted: state => state.all.slice().sort((a, b) => a.title.localeCompare(b.title))
+    // })
   },
   methods: {
-    ...mapActions('tasks', [
-      'syncTask',
-      'setActiveTask'
-    ]),
+    // ...mapActions('tasks', [
+    //   'syncTask',
+    //   'setActiveTask'
+    // ]),
     getInfo (event) {
+      console.log(this.infoState)
       const { value } = event.target
       this.infoState = value
       if (this.infoState === 'email') {
         this.infoState2 = 'phone'
       }
+      if (this.infoState === 'phone') {
+        this.infoState2 = 'email'
+      }
+      console.log(this.infoState)
     }
   },
   components: {

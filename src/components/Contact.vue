@@ -1,10 +1,12 @@
 <template lang="pug">
-  .contact(@mouseover="onMouseOver" @mouseleave="onMouseOut" :class="{active: active, inactive: inactive}")
+  .contact(@mouseover="onMouseOver" @mouseleave="onMouseOut" 
+  :class="{active: active, inactive: inactive, isOdd: isOdd}")
     .background-active
-    .bullet(v-bulletColor="" v-html="data.bullet")
+    .bullet(v-bulletColor="data.bullet[1]" v-html="data.bullet[0]")
     .name(v-html="data.name")
+    .vline
     .info
-      .data(v-html="data[infoState]")
+      data(v-html="data[infoState]")
       p.detailsText(v-html="data[infoState2] + '<br/><br/>' + data.address")
 </template>
 
@@ -21,7 +23,8 @@ export default {
     'active',
     'inactive',
     'hover',
-    'hoverOff'
+    'hoverOff',
+    'isOdd'
   ],
   data () {
     return {
@@ -51,7 +54,7 @@ export default {
   directives: {
     'bulletColor': {
       bind (el, binding, vmode) {
-        el.style.color = 'green'
+        el.style.color = binding.value
       }
     }
   }
@@ -65,25 +68,32 @@ export default {
   font-size: 15px;
   padding: 10px;
   border: 1px solid black;
-  background: linear-gradient(#333333, #1C1C1C);
+  background:linear-gradient(#1C1C1C, #282828, #1c1c1c);
   position: relative;
   transition: background-color .33s ease-in-out;
-
-  .background-active{
+  
+  &.isOdd {
+    background: linear-gradient(#282828, #383838, #282828);
+  }
+  .background-active {
     position: absolute;
     top: 0; bottom: 0; right: 0; left: 0;
     transition: background-color .33s ease-in-out;
     opacity: 0;
-    background-color: orange;
+    background-color: #585858;
   }
 
   &.active {
     background: linear-gradient(#383838, #606060);
+    // what to do??
+    .vline {
+      display: none;
+    }
   }
 
-  &.inactive{
-    background:rgba(0,0,0,0.1);
-    color: gray;
+  &.inactive {
+    background:rgba(0,0,0,0.8);
+    color: #303030;
   }
   &:hover {
     .background-active{
@@ -93,10 +103,12 @@ export default {
       .detailsText{
         display: block;
         transition: background-color 3s ease-in-out;
-        background-color: orange;
-        width: 190px;
-        padding:10px; 
-        margin-left: -10px;
+        background-color: #585858;
+        width: 193px;
+        padding-left: 25px;
+        padding-top: 10px; 
+        padding-bottom: 10px;  
+        margin-left: -27px;
       }
     }
     
@@ -108,7 +120,7 @@ export default {
   }
 
   .name {
-    width: 7em;
+    width: 6em;
     display: inline-block;
     position: relative;
   }
@@ -116,6 +128,7 @@ export default {
   .info{
     display: inline-block;
     position: relative;
+    left: 10%;
     .detailsText{
       display: none;
       position: absolute;
@@ -125,6 +138,14 @@ export default {
     }
   }
 
+  .vline {
+    width: 1em;
+    border-left: 1px solid black;
+    height: 35px;
+    position: absolute;
+    top:0; bottom: 0;
+    display: inline-block;
+  }
   
 }
 </style>
