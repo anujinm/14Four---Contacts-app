@@ -2,7 +2,7 @@
   .contact(@mouseover="onMouseOver" @mouseleave="onMouseOut" 
   :class="{active: active, inactive: inactive, isOdd: isOdd}")
     .background-active
-    .bullet(v-bulletColor="data.bullet[1]" v-html="data.bullet[0]")
+    .bullet(v-bulletColor="data.bullet" ) ●
     .name(v-html="data.name")
     .vline
     .info
