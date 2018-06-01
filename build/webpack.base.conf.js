@@ -44,10 +44,21 @@ module.exports = {
         loader: 'vue-loader',
         options: vueLoaderConfig
       },
+      // {
+      //   test: /\.js$/,
+      //   include: [resolve('src'), resolve('test')],
+      //   // exclude: /(node_modules|bower_components)/,
+      //   use: {
+      //     loader: 'babel-loader',
+      //     options: {
+      //       presets: ['stage-3']
+      //     }
+      //   }
+      // },
       {
         test: /\.js$/,
         loaders: ['babel-loader'],
-        include: [resolve('src'), resolve('test')]
+        include: [resolve('src'), resolve('test')],
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

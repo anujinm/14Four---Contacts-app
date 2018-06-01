@@ -1,9 +1,12 @@
 <template lang="pug">
   .main
     .container
-      h5 Contacts
+      .title
+        h5 Contacts
+        button.btn.btn-default(@click="addContact") +
+        addContactBox(id="addBox" /* :onCreate="contactAdded"*/)
       hr  
-      contacts(:infoState="infoState" :infoState2="infoState2")
+      contacts(ref="contacts" id="contacts" :infoState="infoState" :infoState2="infoState2")
       hr
       select(@change="getInfo")
         option(value="phone") Phone number
@@ -13,6 +16,7 @@
 <script>
 // import { mapActions, mapState } from 'vuex'
 import debug from 'debug'
+import addContactBox from '@/components/AddContactBox'
 import contacts from '@/components/Contacts'
 let log = debug('component:Main')
 export default {
@@ -30,15 +34,8 @@ export default {
     log('Mounted')
   },
   computed: {
-    // ...mapState('tasks', {
-    //   tasksSorted: state => state.all.slice().sort((a, b) => a.title.localeCompare(b.title))
-    // })
   },
   methods: {
-    // ...mapActions('tasks', [
-    //   'syncTask',
-    //   'setActiveTask'
-    // ]),
     getInfo (event) {
       const { value } = event.target
       this.infoState = value
@@ -48,10 +45,28 @@ export default {
       if (this.infoState === 'phone') {
         this.infoState2 = 'email'
       }
+    },
+    addContact () {
+      var addBox = document.getElementById('addBox')
+      var contactsBox = document.getElementById('contacts')
+      if (addBox.style.display === 'block') {
+        addBox.style.display = 'none'
+        contactsBox.style.height = '490px'
+      } else {
+        addBox.style.display = 'block'
+        contactsBox.style.height = '333px'
+      }
     }
+    /* Using refs (instead of eventBus)
+      it passes the info to Main and
+      Main tells Contacts to update */
+    // contactAdded (contact) {
+    //   this.$refs.contacts.contacts.push(contact)
+    // }
   },
   components: {
-    'contacts': contacts
+    'contacts': contacts,
+    'addContactBox': addContactBox
   }
 }
 </script>
@@ -69,13 +84,27 @@ export default {
     margin-left: 50%;
     margin-top: 10px;
   }
-  h5 {
-    padding: 15px;
+  .title {
+    justify-content: space-between;
+    h5 {
+      display: inline-block;
+      padding-top: 20px;
+      padding-bottom: 10px;
+      width: 80%;
+    }
+    .btn {
+      display: inline-block;
+      width: 10%;
+      background: transparent;
+      color: white;
+      font-size: 30px;
+      padding-top: 0;
+    }
   }
   background: linear-gradient(#333333, #1C1C1C);
   border-radius: 20px;
   color: white;
-  height: 590px;
+  height: 600px;
   width: 310px;
 }
 </style>
