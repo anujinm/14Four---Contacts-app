@@ -7,7 +7,8 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+// import { mapActions, mapState, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import debug from 'debug'
 import Contact from './Contact'
 let log = debug('component:Contacts')
@@ -30,7 +31,10 @@ export default {
     log('Mounted')
   },
   computed: {
-    ...mapState('contacts', [
+    // ...mapState('contacts', [
+    //   'contacts'
+    // ]),
+    ...mapGetters('contacts', [
       'contacts'
     ])
   },
