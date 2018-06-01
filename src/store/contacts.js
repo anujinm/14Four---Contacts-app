@@ -11,79 +11,79 @@ const contacts = {
     contacts: [
       {
         bullet: 'green',
-        name: 'Kate',
+        name: 'T\'Challa',
         phone: '509-234-2313',
-        email: 'ahsdbm@yahoo.com',
+        email: 'bpanther@yahoo.com',
         address: '6539 Wilton Ave. Culver City CA 90234'
       },
       {
         bullet: 'green',
-        name: 'Christian',
+        name: 'Hawk eye',
         phone: '509-345-3257',
-        email: 'christianb@yahoo.com',
+        email: 'lookatmyeye@yahoo.com',
         address: '9707 Morton Ave. Seattle WA 21234'
       },
       {
         bullet: 'yellow',
-        name: 'Scott',
+        name: 'Tony Stark',
         phone: '323-353-6890',
-        email: 'rich@yahoo.com',
+        email: 'iamtony@yahoo.com',
         address: '3456 N Ivanhoe Rd. Spokane WA 99214'
       },
       {
         bullet: 'red',
-        name: 'Danny',
+        name: 'Natasha',
         phone: '323-876-2346',
-        email: 'dannym@yahoo.com',
+        email: 'nat@yahoo.com',
         address: '4572 Boone Ave. SaltLake City WA 23421'
       },
       {
         bullet: 'green',
-        name: 'Taka',
+        name: 'Loki',
         phone: '206-248-2761',
-        email: 'takataka@yahoo.com',
+        email: 'Loki@yahoo.com',
         address: '1295 Southhill Ave. Pullman WA 99218'
       },
       {
         bullet: 'green',
-        name: 'Christian',
+        name: 'Chris',
         phone: '509-345-3257',
-        email: 'christianb@yahoo.com',
+        email: 'christiano@yahoo.com',
         address: '9707 Morton Ave. Seattle WA 21234'
       },
       {
         bullet: 'yellow',
-        name: 'Scott',
+        name: 'Elly',
         phone: '323-353-6890',
-        email: 'rich@yahoo.com',
+        email: 'elly@yahoo.com',
         address: '3456 N Ivanhoe Rd. Spokane WA 99214'
       },
       {
         bullet: 'red',
-        name: 'Danny',
+        name: 'Bucky',
         phone: '323-876-2346',
-        email: 'dannym@yahoo.com',
+        email: 'mbucky@yahoo.com',
         address: '4572 Boone Ave. SaltLake City WA 23421'
       },
       {
         bullet: 'green',
-        name: 'Taka',
+        name: 'Steve R',
         phone: '206-248-2761',
-        email: 'takataka@yahoo.com',
+        email: 'captain@yahoo.com',
         address: '1295 Southhill Ave. Pullman WA 99218'
       },
       {
         bullet: 'yellow',
-        name: 'Tim',
+        name: 'Hulk',
         phone: '564-564-7898',
-        email: 'tim@yahoo.com',
+        email: 'hulk@yahoo.com',
         address: '6539 Wilton Ave. New York NY 45684'
       },
       {
         bullet: 'yellow',
-        name: 'Patrick',
+        name: 'Thor',
         phone: '509-123-1352',
-        email: 'pjhb@yahoo.com',
+        email: 'thor@yahoo.com',
         address: '3242 Samson Rd. South City KN 77543'
       },
       {
@@ -121,6 +121,23 @@ const contacts = {
     ADD_CONTACT (state, { contact }) {
       log('mutation ADD_CONTACT', contact)
       state.contacts.push(contact)
+      console.log(contact)
+    },
+    REMOVE_CONTACT (state, { contact }) {
+      console.log('coming in name: ' + contact.name)
+      log('mutation REMOVE_CONTACT', contact)
+      var myIndex = -1
+      var i
+      let cont = contacts.state.contacts
+      console.log(cont)
+      for (i = 0; i < cont.length; i++) {
+        console.log('my i: ' + i)
+        if (cont[i].name === contact.name) {
+          myIndex = i
+        }
+      }
+      console.log('final index: ' + myIndex)
+      state.contacts.splice(myIndex, 1)
     }
   },
 
@@ -130,6 +147,9 @@ const contacts = {
   actions: {
     addContact (context, contact) {
       context.commit('ADD_CONTACT', { contact })
+    },
+    removeContact (context, contact) {
+      context.commit('REMOVE_CONTACT', { contact })
     }
   }
 

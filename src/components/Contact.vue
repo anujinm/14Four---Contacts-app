@@ -12,9 +12,12 @@
         a.email(v-if="infoState2 === 'email'" v-html="data.email")
         .phone(v-if="infoState2 === 'phone'" v-html="data.phone")
         .address(v-html="'<br/>' + data.address")
+        button(@click="deleteContact") Delete contact
+        button Edit contact
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import debug from 'debug'
 let log = debug('component:Contact')
 export default {
@@ -42,6 +45,9 @@ export default {
   computed: {
   },
   methods: {
+    ...mapActions('contacts', [
+      'removeContact'
+    ]),
     onMouseOver () {
       if (typeof this.hover === 'function') {
         this.hover(this.index)
@@ -51,6 +57,10 @@ export default {
       if (typeof this.hoverOff === 'function') {
         this.hoverOff(this.index)
       }
+    },
+    deleteContact () {
+      const contact = this.data
+      this.removeContact(contact)
     }
   },
   components: {
@@ -59,24 +69,6 @@ export default {
     'bulletColor': {
       bind (el, binding, vmode) {
         el.style.color = binding.value
-      }
-    },
-    'more': {
-      bind (el, binding, vmode) {
-        if (binding.value[0].length > 12) {
-          console.log('making it url')
-          el.innerHTML = '<a href="#">' + binding.value[0] + '<a/>' + '<br/><br/>' + binding.value[1]
-        } else {
-          el.innerHTML = binding.value[0] + '<br/><br/>' + binding.value[1]
-        }
-      }
-    },
-    'more1': {
-      bind (el, binding, vmode) {
-        if (binding.value.length > 12) {
-          console.log('making it url')
-          el.innerHTML = '<a href="#" style="color: #7fbfff; border-bottom: 1px dashed #7fbfff;">' + binding.value + '<a/>'
-        }
       }
     }
   }
@@ -93,7 +85,10 @@ export default {
   background:linear-gradient(#1C1C1C, #282828, #1c1c1c);
   position: relative;
   transition: background-color .33s ease-in-out;
-
+  
+  button {
+    display: inline;
+  }
   .email{
     color: #7fbfff;
     border-bottom: 1px solid #7fbfff;

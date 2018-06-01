@@ -36,7 +36,8 @@ export default {
   },
   methods: {
     ...mapActions('contacts', [
-      'addContact'
+      'addContact',
+      'removeContact'
     ]),
     onMouseHover (index) {
       this.activeRowIndex = index

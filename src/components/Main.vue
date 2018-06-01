@@ -6,7 +6,7 @@
         button.btn.btn-default(@click="addContact") +
         addContactBox(id="addBox" /* :onCreate="contactAdded"*/)
       hr  
-      contacts(ref="contacts" id="contacts" :infoState="infoState" :infoState2="infoState2")
+      contacts(id="contacts" :infoState="infoState" :infoState2="infoState2" /*ref="contacts"*/)
       hr
       select(@change="getInfo")
         option(value="phone") Phone number

@@ -25,8 +25,8 @@ let log = debug('component:Contacts')
 export default {
   name: 'addContactBox',
   props: [
-    'contacts',
-    'onCreate'
+    'contacts'
+    // 'onCreate'
   ],
   data () {
     return {
