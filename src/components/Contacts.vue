@@ -1,14 +1,10 @@
 <template lang="pug">
   .contacts
-    .container
-      .vue-scroll(:ops="ops")
-        contact(v-for="(contact, index) in contacts" :key="'contact' + index" :data="contact" :index="index"
-          :infoState="infoState" :infoState2="infoState2" :hover="onMouseHover" :hoverOff="onMouseOut" 
-          :inactive="isInactive(index)" :active="isActive(index)" :isOdd="isOdd(index)")
+    .container.parent
+      contact(v-for="(contact, index) in contacts" :key="'contact' + index" :data="contact" :index="index"
+        :infoState="infoState" :infoState2="infoState2" :hover="onMouseHover" :hoverOff="onMouseOut" 
+        :inactive="isInactive(index)" :active="isActive(index)" :isOdd="isOdd(index)")
 </template>
-
-<script src="https://unpkg.com/vue"></script>
-<script src="https://unpkg.com/vuescroll"></script>
 
 <script>
 import debug from 'debug'
@@ -22,15 +18,6 @@ export default {
   ],
   data () {
     return {
-      ops: {
-        rail: {
-          vRail: {
-            opacity: 0,
-            background: undefined,
-            pos: 'right'
-          }
-        }
-      },
       activeRowIndex: -1,
       contacts: [
         {
@@ -172,13 +159,6 @@ export default {
       return this.rowIndex % 2 === 1
     }
   },
-  directives: {
-    'bulletColor': {
-      bind (el, binding, vmode) {
-        el.style.color = 'green'
-      }
-    }
-  },
   components: {
     contact: Contact
   }
@@ -203,8 +183,13 @@ export default {
 @import "../styles/_variables";
 @import "../styles/_mixins";
 .contacts {
-  height: 490px;
+  max-height: 490px;
+  overflow: scroll;
   width: 310px;
+  .parent {
+    height: 100%;
+    float:left;
+  }
   .row{
     font-size: 15px;
     padding: 10px;

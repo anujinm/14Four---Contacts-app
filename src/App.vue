@@ -33,6 +33,8 @@ export default {
 <style lang="scss">
 @import "./styles/main";
 #app {
+  width: 100%;
+  height: 700px;
   font-family: 'Roboto', sans-serif;
   font-size: 20px;
   hr {
