@@ -87,9 +87,9 @@ export default {
 @import "../styles/_variables";
 @import "../styles/_mixins";
 .contacts {
-  max-height: 490px;
+  max-height: $contacts-height;
   overflow: scroll;
-  width: 310px;
+  width: $main-width;
   .parent {
     height: 100%;
     float:left;

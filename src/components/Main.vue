@@ -3,11 +3,11 @@
     .container
       .title
         h5 Contacts
-        button.btn.btn-default(@click="addContact") +
-        addContactBox(ref="addBox" id="addBox" /* :onCreate="contactAdded"*/)
-        editContactBox(v-if="currentEditContact" ref="editBox")
+        button.btn.btn-default(@click="showAdd = !showAdd" ) +
+        addContactBox(v-if="showAdd" /* :onCreate="contactAdded"*/)
+        editContactBox(v-if="currentEditContact")
       hr  
-      contacts(ref="contacts" id="contacts" :infoState="infoState" :infoState2="infoState2")
+      contacts.contacts(ref="contacts" id="contacts" :infoState="infoState" :infoState2="infoState2")
       hr
       select(@change="getInfo")
         option(value="phone") Phone number
@@ -28,6 +28,7 @@ export default {
   ],
   data () {
     return {
+      showAdd: false,
       infoState: 'phone',
       infoState2: 'email'
     }
@@ -56,19 +57,6 @@ export default {
       if (this.infoState === 'phone') {
         this.infoState2 = 'email'
       }
-    },
-    addContact () {
-      const addBox = document.getElementById('addBox')
-      const contactsBox = document.getElementById('contacts')
-      // const addBox = this.$refs.addBox
-      // const contactsBox = this.$refs.contacts
-      if (addBox.style.display === 'block') {
-        addBox.style.display = 'none'
-        contactsBox.style.height = '490px'
-      } else {
-        addBox.style.display = 'block'
-        contactsBox.style.height = '333px'
-      }
     }
     /* Using refs (instead of eventBus)
       it passes the info to Main and
@@ -91,6 +79,7 @@ export default {
 .main{
   .container {
     padding:0;
+    text-shadow: 2px 2px 4px #000000;
   }
   select {
     font-size: small;
@@ -118,7 +107,9 @@ export default {
   background: linear-gradient(#333333, #1C1C1C);
   border-radius: 20px;
   color: white;
-  height: 600px;
-  width: 310px;
+  height: $main-height;
+  width: $main-width;
+  overflow: auto;
+  box-shadow: 10px 10px 15px #5b4855;
 }
 </style>

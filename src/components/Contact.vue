@@ -84,13 +84,13 @@ export default {
 @import "../styles/_variables";
 @import "../styles/_mixins";
 .contact {
-  font-size: 15px;
+  font-size: $main-font;
   padding: 10px;
   border: 1px solid black;
   background:linear-gradient(#1C1C1C, #282828, #1c1c1c);
   position: relative;
   transition: background-color .33s ease-in-out;
-  
+  overflow-wrap: break-word;
   button {
     display: inline-bock;
     margin : 5px;
@@ -133,14 +133,14 @@ export default {
     .info{
       .detailsText{
         display: block;
+        text-align: center;
         transition: background-color 3s ease-in-out;
         background-color: #585858;
-        width: 193px;
-        padding-left: 25px;
+        width: 187px;
+        padding-left: 10px;
         padding-right: 10px;
         padding-top: 10px; 
         padding-bottom: 10px;  
-        margin-left: -27px;
       }
     }
     
@@ -152,7 +152,7 @@ export default {
   }
 
   .name {
-    width: 6em;
+    width: 40%;
     display: inline-block;
     position: relative;
   }
@@ -160,7 +160,8 @@ export default {
   .info{
     display: inline-block;
     position: relative;
-    left: 10%;
+    width: 55%;
+    text-align: center;
     .detailsText{
       display: none;
       position: absolute;
@@ -173,7 +174,7 @@ export default {
   .vline {
     width: 1em;
     border-left: 1px solid black;
-    height: 35px;
+    height: 100%;
     position: absolute;
     top:0; bottom: 0;
     display: inline-block;

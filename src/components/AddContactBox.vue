@@ -12,7 +12,7 @@
         input(ref="email")
       .getAddress
         label Address:
-        input(ref="address")
+        textarea(ref="address")
       button(@click="addData" id="addBox") Add Contact
       </style>
 </template>
@@ -46,7 +46,8 @@ export default {
         name: this.$refs.name.value,
         phone: this.$refs.phone.value,
         email: this.$refs.email.value,
-        address: this.$refs.address.value
+        address: this.$refs.address.value,
+        bullet: 'green'
       }
       this.addContact(contact)
       var contactsBox = document.getElementById('contacts')
@@ -70,7 +71,7 @@ export default {
 @import "../styles/_variables";
 @import "../styles/_mixins";
 .addContactBox {
-  display: none;
+  // display: none;
   font-size: 15px;
   .getInfo {
     padding-bottom: 10px;
@@ -80,10 +81,17 @@ export default {
     }
     input {
       margin: 5px;
-      width: 11em;
+      width: 13em;
+    }
+    textarea {
+      margin: 5px;
+      width: 13em;
     }
     button {
-      margin-left: 150px;
+      margin-left: 11.5em;
+    }
+    .getAddress label {
+      vertical-align: 100%;
     }
   }
 }

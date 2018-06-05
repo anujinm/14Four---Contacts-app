@@ -12,7 +12,7 @@
         input(ref="email" :value="currentEditContact.email")
       .getAddress
         label Address:
-        input(ref="address" :value="currentEditContact.address")
+        textarea(ref="address" :value="currentEditContact.address")
       button(@click="editData" id="editBox") Save
       </style>
 </template>
@@ -49,14 +49,14 @@ export default {
       'editContact'
     ]),
     editData () {
-      console.log(this.index)
       const contact = {
         name: this.$refs.name.value,
         phone: this.$refs.phone.value,
         email: this.$refs.email.value,
-        address: this.$refs.address.value
+        address: this.$refs.address.value,
+        id: this.currentEditContact.id,
+        bullet: 'green'
       }
-      console.log(this.data)
       this.editContact(contact)
     }
   },
@@ -79,10 +79,17 @@ export default {
     }
     input {
       margin: 5px;
-      width: 11em;
+      width: 13em;
+    }
+    textarea {
+      margin: 5px;
+      width: 13em;
     }
     button {
-      margin-left: 190px;
+      margin-left: 15em;
+    }
+    .getAddress label {
+      vertical-align: 100%;
     }
   }
 }
