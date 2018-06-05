@@ -45,6 +45,7 @@ export default {
     ]),
     onMouseHover (index) {
       this.activeRowIndex = index
+      // console.log(this.contacts[index])
       // console.log(this.rowIndex)
     },
     onMouseOut () {

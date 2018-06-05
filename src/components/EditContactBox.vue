@@ -1,32 +1,31 @@
 <template lang="pug">
-  .addContactBox
-    .getInfo(id="box")
+  .editContactBox
+    .getInfo(v-if="currentEditContact" id="box")
       .getName    
         label Name:
-        input(ref="name")
+        input(ref="name" :value="currentEditContact.name") 
       .getPhone
         label Phone:
-        input(ref="phone")
+        input(ref="phone" :value="currentEditContact.phone")
       .getEmail
         label Email:
-        input(ref="email")
+        input(ref="email" :value="currentEditContact.email")
       .getAddress
         label Address:
-        input(ref="address")
-      button(@click="addData" id="addBox") Add Contact
+        input(ref="address" :value="currentEditContact.address")
+      button(@click="editData" id="editBox") Save
       </style>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-import Contacts from '@/components/Contacts'
+import { mapActions, mapGetters, mapState } from 'vuex'
 import debug from 'debug'
-let log = debug('component:AddContactBox')
+let log = debug('component:EditContactBox')
+
 export default {
-  name: 'addContactBox',
+  name: 'editContactBox',
   props: [
-    'contacts'
-    // 'onCreate'
+    'index'
   ],
   data () {
     return {
@@ -36,32 +35,32 @@ export default {
     log('Mounted')
   },
   computed: {
+    ...mapGetters('contacts', [
+      'contacts'
+    ]),
+    ...mapState('contacts', [
+      'currentEditContact'
+    ])
   },
   methods: {
     ...mapActions('contacts', [
-      'addContact'
+      'addContact',
+      'removeContact',
+      'editContact'
     ]),
-    addData () {
+    editData () {
+      console.log(this.index)
       const contact = {
         name: this.$refs.name.value,
         phone: this.$refs.phone.value,
         email: this.$refs.email.value,
         address: this.$refs.address.value
       }
-      this.addContact(contact)
-      var contactsBox = document.getElementById('contacts')
-      console.log('here' + contactsBox.style.display)
-      if (contactsBox.style.display === 'block') {
-        contactsBox.style.display = 'none'
-        contactsBox.style.height = '490px'
-      }
-      // if (typeof this.onCreate === 'function') {
-      //   this.onCreate(contact)
-      // }
+      console.log(this.data)
+      this.editContact(contact)
     }
   },
   components: {
-    'contacts': Contacts
   }
 }
 </script>
@@ -69,8 +68,8 @@ export default {
 <style scoped lang="scss">
 @import "../styles/_variables";
 @import "../styles/_mixins";
-.addContactBox {
-  display: none;
+.editContactBox {
+  // display: none;
   font-size: 15px;
   .getInfo {
     padding-bottom: 10px;
@@ -83,7 +82,7 @@ export default {
       width: 11em;
     }
     button {
-      margin-left: 150px;
+      margin-left: 190px;
     }
   }
 }

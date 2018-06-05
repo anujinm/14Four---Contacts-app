@@ -9,6 +9,7 @@ const contacts = {
   namespaced: true,
 
   state: {
+    currentEditContact: null,
     contactsObj: {
       '001': {
         bullet: 'green',
@@ -138,52 +139,43 @@ const contacts = {
         return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
       }
       /* eslint-enable */
-      // state.contacts.push(contact)
-      // console.log(contact)
       const id = guid()
       Vue.set(state.contactsObj, id, contact)
-      console.log(state.contactsObj)
     },
     REMOVE_CONTACT (state, { contact }) {
-      // delete state.contactsObj[id]
-      const id = guid()
-      console.log('coming in name: ' + contact.id + contact.name + id)
       log('mutation REMOVE_CONTACT', contact)
-      // var myIndex = -1
-      // var i
-      // let cont = state.contacts
-      // console.log(cont)
-      // for (i = 0; i < cont.length; i++) {
-      //   console.log('my i: ' + i)
-      //   if (cont[i].name === contact.name) {
-      //     myIndex = i
-      //   }
-      // }
-      // console.log('final index: ' + myIndex)
-      // state.contacts.splice(myIndex, 1)
-
-      /* eslint-disable */
-      function guid() {
-        function s4() {
-          return Math.floor((1 + Math.random()) * 0x10000)
-            .toString(16)
-            .substring(1);
-        }
-        return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-      }
-      /* eslint-enable */
-      console.log('state.contactsObj[id]' + state.contactsObj[id])
-      if (state[id] === id) {
-        state.contactsObj.splice(1, 1, contact)
-      }
+      const { id } = contact
+      Vue.delete(state.contactsObj, id)
+      /* for loop to loop through keys in the Object :
+      /*
+      /*  Object.keys(state.contactsObj).forEach((key) => {
+      /*    const item = state.contactsObj[key]
+      /*    console.log(item)
+      /*  })   */
+    },
+    EDIT_CONTACT (state, { contact }) {
+      log('mutation EDIT_CONTACT', contact)
+      const { id } = contact
+      Vue.set(state.contactsObj, id, contact)
+      state.currentEditContact = null
+    },
+    SHOW_EDIT_CONTACT (state, { contact }) {
+      state.currentEditContact = contact
     }
   },
 
   getters: {
     contacts (state) {
-      return Object.keys(state.contactsObj).map((id) => {
+      const contacts = Object.keys(state.contactsObj).map((id) => {
         return { id, ...state.contactsObj[id] }
       })
+      contacts.sort((a, b) => {
+        const textA = a.name.toUpperCase()
+        const textB = b.name.toUpperCase()
+        const returnVal = (textA < textB) ? -1 : (textA > textB) ? 1 : 0
+        return returnVal
+      })
+      return contacts
     }
   },
 
@@ -193,9 +185,14 @@ const contacts = {
     },
     removeContact (context, contact) {
       context.commit('REMOVE_CONTACT', { contact })
+    },
+    editContact (context, contact) {
+      context.commit('EDIT_CONTACT', { contact })
+    },
+    showEditContact (context, contact) {
+      context.commit('SHOW_EDIT_CONTACT', { contact })
     }
   }
-
 }
 
 export default contacts

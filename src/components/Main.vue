@@ -4,9 +4,10 @@
       .title
         h5 Contacts
         button.btn.btn-default(@click="addContact") +
-        addContactBox(id="addBox" /* :onCreate="contactAdded"*/)
+        addContactBox(ref="addBox" id="addBox" /* :onCreate="contactAdded"*/)
+        editContactBox(v-if="currentEditContact" ref="editBox")
       hr  
-      contacts(id="contacts" :infoState="infoState" :infoState2="infoState2" /*ref="contacts"*/)
+      contacts(ref="contacts" id="contacts" :infoState="infoState" :infoState2="infoState2")
       hr
       select(@change="getInfo")
         option(value="phone") Phone number
@@ -14,14 +15,17 @@
 </template>
 
 <script>
-// import { mapActions, mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import debug from 'debug'
 import addContactBox from '@/components/AddContactBox'
+import editContactBox from '@/components/EditContactBox'
 import contacts from '@/components/Contacts'
 let log = debug('component:Main')
 export default {
   name: 'mainScr',
-  props: [],
+  props: [
+    'index'
+  ],
   data () {
     return {
       infoState: 'phone',
@@ -34,8 +38,15 @@ export default {
     log('Mounted')
   },
   computed: {
+    ...mapState('contacts', [
+      'currentEditContact',
+      'addNewContact'
+    ])
   },
   methods: {
+    ...mapActions('contacts', [
+      'showNewContact'
+    ]),
     getInfo (event) {
       const { value } = event.target
       this.infoState = value
@@ -47,8 +58,10 @@ export default {
       }
     },
     addContact () {
-      var addBox = document.getElementById('addBox')
-      var contactsBox = document.getElementById('contacts')
+      const addBox = document.getElementById('addBox')
+      const contactsBox = document.getElementById('contacts')
+      // const addBox = this.$refs.addBox
+      // const contactsBox = this.$refs.contacts
       if (addBox.style.display === 'block') {
         addBox.style.display = 'none'
         contactsBox.style.height = '490px'
@@ -66,7 +79,8 @@ export default {
   },
   components: {
     'contacts': contacts,
-    'addContactBox': addContactBox
+    'addContactBox': addContactBox,
+    'editContactBox': editContactBox
   }
 }
 </script>

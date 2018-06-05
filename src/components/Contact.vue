@@ -12,8 +12,8 @@
         a.email(v-if="infoState2 === 'email'" v-html="data.email")
         .phone(v-if="infoState2 === 'phone'" v-html="data.phone")
         .address(v-html="'<br/>' + data.address")
-        button(@click="deleteContact") Delete contact
-        button Edit contact
+        button(@click="editContact" id="editContact") Edit
+        button(@click="deleteContact") Delete
 </template>
 
 <script>
@@ -46,7 +46,8 @@ export default {
   },
   methods: {
     ...mapActions('contacts', [
-      'removeContact'
+      'removeContact',
+      'showEditContact'
     ]),
     onMouseOver () {
       if (typeof this.hover === 'function') {
@@ -60,7 +61,11 @@ export default {
     },
     deleteContact () {
       const contact = this.data
+      console.log(contact + '!!!!!')
       this.removeContact(contact)
+    },
+    editContact () {
+      this.showEditContact(this.data)
     }
   },
   components: {
@@ -87,7 +92,8 @@ export default {
   transition: background-color .33s ease-in-out;
   
   button {
-    display: inline;
+    display: inline-bock;
+    margin : 5px;
   }
   .email{
     color: #7fbfff;
