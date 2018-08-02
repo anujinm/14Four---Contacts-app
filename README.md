@@ -40,4 +40,4 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 * Made as a first assignment at 14Four
 * Objectives Learned: States, components, passing and taking parameters, better css, debugging, much more... 
 
-![Screenshot](Screen Shot 2018-08-02 at 10.08.59 AM.png)
+
