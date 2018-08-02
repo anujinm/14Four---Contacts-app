@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # assignment01
 
 > A Vue.js project
@@ -40,4 +39,5 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 * This is a contact application 
 * Made as a first assignment at 14Four
 * Objectives Learned: States, components, passing and taking parameters, better css, debugging, much more... 
->>>>>>> 1a5476377b9b3dd3da07740cd1255c6525b41b3b
+
+![Screenshot](Screen Shot 2018-08-02 at 10.08.59 AM.png)
